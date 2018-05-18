@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity implements NoticeDialogListe
             public void onClick(View view) {
                 StartQuizFragment fragment = new StartQuizFragment();
                 Bundle bundle = new Bundle();
-                bundle.putString("quizSubject", "css");
+                bundle.putString("quizSubject", "CSS");
                 fragment.setArguments(bundle);
                 fragment.show(getSupportFragmentManager(), "dialog_StartQuizFragment");
 
@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity implements NoticeDialogListe
             public void onClick(View view) {
                 StartQuizFragment fragment = new StartQuizFragment();
                 Bundle bundle = new Bundle();
-                bundle.putString("quizSubject", "html");
+                bundle.putString("quizSubject", "HTML");
                 fragment.setArguments(bundle);
                 fragment.show(getSupportFragmentManager(), "dialog_StartQuizFragment");
 
@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity implements NoticeDialogListe
             public void onClick(View view) {
                 StartQuizFragment fragment = new StartQuizFragment();
                 Bundle bundle = new Bundle();
-                bundle.putString("quizSubject", "javascript");
+                bundle.putString("quizSubject", "JavaScript");
                 fragment.setArguments(bundle);
                 fragment.show(getSupportFragmentManager(), "dialog_StartQuizFragment");
 

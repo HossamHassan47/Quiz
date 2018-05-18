@@ -2,7 +2,8 @@
     <dimen name="app_bar_height">230dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="text_margin">16dp</dimen>
-    <dimen name="subject_height">72dp</dimen>
+    <dimen name="main_subject_height">72dp</dimen>
+    <dimen name="quiz_subject_height">36dp</dimen>
 
     <dimen name="home_button_height">72dp</dimen>
     <dimen name="home_button_width">72dp</dimen>
@@ -12,14 +13,5 @@
 
     <dimen name="separator_height">2dp</dimen>
 
-    <dimen name="team_name_height">64dp</dimen>
-    <dimen name="team_name_padding">4dp</dimen>
 
-    <dimen name="score_padding">4dp</dimen>
-    <dimen name="score_height_runs">160dp</dimen>
-    <dimen name="score_text_size_runs">96sp</dimen>
-    <dimen name="score_height_outs">140dp</dimen>
-    <dimen name="score_text_size_outs">72sp</dimen>
-
-    <dimen name="score_points_padding">4dp</dimen>
 </resources>

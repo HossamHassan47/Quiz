@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.wordpress.hossamhassan47.quiz.activities.MainActivity;
 import com.wordpress.hossamhassan47.quiz.R;
+import com.wordpress.hossamhassan47.quiz.activities.QuizActivity;
 
 public class StartQuizFragment extends DialogFragment {
 
@@ -59,9 +60,7 @@ public class StartQuizFragment extends DialogFragment {
                             return;
                         }
 
-                        Intent intent;
-
-                        intent = new Intent(getContext(), MainActivity.class);
+                        Intent intent = new Intent(getContext(), QuizActivity.class);
 
                         intent.putExtra("userName", userName);
                         intent.putExtra("quizSubject", strQuizSubject);

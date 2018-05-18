@@ -6,10 +6,15 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.FrameLayout;
+import android.widget.TextView;
 
 import com.wordpress.hossamhassan47.quiz.R;
 
 public class QuizActivity extends AppCompatActivity {
+
+    String quizSubject;
+    String userName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,14 +23,23 @@ public class QuizActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+        // Set Team A Name
+        quizSubject = getIntent().getExtras().getString("quizSubject");
+        userName = getIntent().getExtras().getString("quizSubject");
+
+        TextView txtQuizSubject = findViewById(R.id.text_view_quiz_subject);
+        txtQuizSubject.setText(quizSubject);
+
+        FrameLayout frameQuizSubject = findViewById(R.id.frame_layout_quiz_subject);
+
+        if (quizSubject.equals("CSS")) {
+            frameQuizSubject.setBackgroundResource(R.color.background_CSS);
+        } else if (quizSubject.equals("HTML")) {
+            frameQuizSubject.setBackgroundResource(R.color.background_HTML);
+        } else if (quizSubject.equals("JavaScript")){
+            frameQuizSubject.setBackgroundResource(R.color.background_JavaScript);
+        }
+
     }
 
 }

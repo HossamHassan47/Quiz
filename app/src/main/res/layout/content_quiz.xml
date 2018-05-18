@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -8,4 +8,26 @@
     tools:context=".activities.QuizActivity"
     tools:showIn="@layout/activity_quiz">
 
-</android.support.constraint.ConstraintLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <!--Subject-->
+        <FrameLayout
+            android:id="@+id/frame_layout_quiz_subject"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/quiz_subject_height">
+
+            <TextView
+                android:id="@+id/text_view_quiz_subject"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:textAppearance="?android:textAppearanceMedium"
+                android:textColor="@android:color/white"
+                android:textStyle="bold" />
+        </FrameLayout>
+    </LinearLayout>
+
+</ScrollView>
