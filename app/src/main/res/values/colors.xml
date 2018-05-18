@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#FFC400</color>
+    <color name="colorPrimaryDark">#616161</color>
+    <color name="colorAccent">#FF80AB</color>
+    <color name="backgroundColor">#F5F5F5</color>
+
+    <color name="background_CSS">#00BCD4</color>
+    <color name="background_HTML">#FF5722</color>
+    <color name="background_JavaScript">#8BC34A</color>
+
+</resources>
