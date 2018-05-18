@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/backgroundColor"
-    tools:context=".MainActivity">
+    tools:context=".activities.MainActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -21,17 +21,18 @@
         <!--CSS-->
         <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/subject_height"
             android:layout_marginLeft="@dimen/text_margin"
             android:layout_marginRight="@dimen/text_margin"
             android:layout_marginTop="@dimen/text_margin"
             android:background="@color/background_CSS">
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_margin="@dimen/section_margin"
+                android:id="@+id/text_view_css"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="?android:attr/selectableItemBackground"
+                android:gravity="center"
                 android:text="@string/css"
                 android:textAppearance="?android:textAppearanceMedium"
                 android:textColor="@android:color/white"
@@ -42,17 +43,18 @@
         <!--HTML-->
         <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/subject_height"
             android:layout_marginLeft="@dimen/text_margin"
             android:layout_marginRight="@dimen/text_margin"
             android:layout_marginTop="@dimen/text_margin"
             android:background="@color/background_HTML">
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_margin="@dimen/section_margin"
+                android:id="@+id/text_view_html"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="?android:attr/selectableItemBackground"
+                android:gravity="center"
                 android:text="@string/html"
                 android:textAppearance="?android:textAppearanceMedium"
                 android:textColor="@android:color/white"
@@ -62,15 +64,16 @@
         <!--JavaScript-->
         <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/subject_height"
             android:layout_margin="@dimen/text_margin"
             android:background="@color/background_JavaScript">
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_margin="@dimen/section_margin"
+                android:id="@+id/text_view_javascript"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="?android:attr/selectableItemBackground"
+                android:gravity="center"
                 android:text="@string/javascript"
                 android:textAppearance="?android:textAppearanceMedium"
                 android:textColor="@android:color/white"
