@@ -8,4 +8,6 @@ public class Question {
     public String Option3;
     public String Option4;
     public String CorrectAnswer;
+    public String Type;
+    public String OptionsCount;
 }

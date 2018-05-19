@@ -15,32 +15,10 @@ import java.util.ArrayList;
 
 public class JsonHelper {
 
-    public void ReadQuestions(Context context) {
-//        {
-//            "Categories": {
-//            "Category": [
-//            {
-//                "cat_id": "3",
-//                    "cat_name": "test"
-//            },
-//            {
-//                "cat_id": "4",
-//                    "cat_name": "test1"
-//            },
-//            {
-//                "cat_id": "5",
-//                    "cat_name": "test2"
-//            },
-//            {
-//                "cat_id": "6",
-//                    "cat_name": "test3"
-//            }
-//        ]
-//        }
-//        }
+    public static ArrayList<Question> ReadQuestions(Context context, String subject) {
 
         //Get Data From Text Resource File Contains Json Data.
-        InputStream inputStream = context.getResources().openRawResource(R.raw.css);
+        InputStream inputStream = context.getResources().openRawResource(R.raw.questions);
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
 
         int ctr;
@@ -55,29 +33,43 @@ public class JsonHelper {
             e.printStackTrace();
         }
 
-        Log.v("Text Data", byteArrayOutputStream.toString());
+        //Log.v("Text Data", byteArrayOutputStream.toString());
+
+        ArrayList<Question> questions = new ArrayList<>();
 
         try {
 
-            // Parse the data into jsonobject to get original data in form of json.
+            // Parse the data into json object to get original data in form of json.
             JSONObject jObject = new JSONObject(
                     byteArrayOutputStream.toString());
 
-            JSONObject jObjectResult = jObject.getJSONObject("CSS");
-            JSONArray jArray = jObjectResult.getJSONArray("Questions");
+            JSONObject jObjectResult = jObject.getJSONObject(subject);
 
-            ArrayList<Question> questions = new ArrayList<>();
+            JSONArray jArray = jObjectResult.getJSONArray("Questions");
 
             for (int i = 0; i < jArray.length(); i++) {
                 Question question = new Question();
 
                 question.Id = jArray.getJSONObject(i).getString("Id");
                 question.Title = jArray.getJSONObject(i).getString("Title");
+                question.Option1 = jArray.getJSONObject(i).getString("Option1");
+                question.Option2 = jArray.getJSONObject(i).getString("Option2");
+                question.Option3 = jArray.getJSONObject(i).getString("Option3");
+                question.Option4 = jArray.getJSONObject(i).getString("Option4");
+                question.CorrectAnswer = jArray.getJSONObject(i).getString("CorrectAnswer");
+                question.Type = jArray.getJSONObject(i).getString("Type");
+                question.OptionsCount = jArray.getJSONObject(i).getString("OptionsCount");
+
                 questions.add(question);
+
+                //Log.v("Id", question.Id);
+                //Log.v("Title", question.Title);
             }
 
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        return questions;
     }
 }
