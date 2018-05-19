@@ -1,5 +1,6 @@
 package com.wordpress.hossamhassan47.quiz.activities;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -7,6 +8,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
@@ -31,7 +34,7 @@ public class QuizActivity extends AppCompatActivity {
     Question currentQuestion;
     int currentQuestionIndex = 0;
 
-    int quizDegree = 0;
+    int quizMark = 0;
 
     TextView txtQuestionTitle;
     LinearLayout layoutQuestionOptions;
@@ -40,6 +43,8 @@ public class QuizActivity extends AppCompatActivity {
     Button btnNextQuestion;
 
     RadioButton[] rbOptions;
+    CheckBox[] chkOptions;
+    EditText editTextAnswer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,11 +80,17 @@ public class QuizActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
+                // Check user answer
+                checkUserAnswer();
+
+                btnNextQuestion.setEnabled(true);
+                btnSubmitQuestion.setEnabled(false);
             }
         });
 
         // Next button
         btnNextQuestion = findViewById(R.id.button_next_question);
+        btnNextQuestion.setEnabled(false);
         btnNextQuestion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -90,6 +101,14 @@ public class QuizActivity extends AppCompatActivity {
                 // Display next question
                 currentQuestionIndex++;
                 displayQuestion(currentQuestionIndex);
+
+                btnNextQuestion.setEnabled(false);
+                btnSubmitQuestion.setEnabled(true);
+
+                if (currentQuestionIndex == (lstQuestions.size() - 1)) {
+                    // Last question
+                    btnNextQuestion.setText("Finish");
+                }
             }
         });
 
@@ -97,24 +116,28 @@ public class QuizActivity extends AppCompatActivity {
         lstQuestions = JsonHelper.ReadQuestions(getApplicationContext(), quizSubject);
 
         // Display 1st question
-        displayQuestion(0);
+        if (lstQuestions.size() > 0) {
+            displayQuestion(0);
+        }
     }
 
 
     private void displayQuestion(int index) {
-        Question currentQuestion = lstQuestions.get(index);
+        // Get current question
+        currentQuestion = lstQuestions.get(index);
 
-        // Set Title
+        // Set question title text view
         txtQuestionTitle.setText(currentQuestion.Title);
 
-        // Clear old options if any exists
+        // Clear previous options if any exists
         if (layoutQuestionOptions.getChildCount() > 0) {
             layoutQuestionOptions.removeAllViews();
         }
 
+        // Add the current options based on question Type
         if (currentQuestion.Type.equals("radio")) {
 
-            rbOptions = new RadioButton[ Integer.parseInt(currentQuestion.OptionsCount)];
+            rbOptions = new RadioButton[Integer.parseInt(currentQuestion.OptionsCount)];
 
             RadioGroup rgOptions = new RadioGroup(this);
             rgOptions.setOrientation(RadioGroup.VERTICAL);
@@ -135,12 +158,11 @@ public class QuizActivity extends AppCompatActivity {
                 rgOptions.addView(rbOptions[1]);
             }
 
-
             // Option 3
             if (currentQuestion.Option3 != null && !currentQuestion.Option3.isEmpty()) {
                 rbOptions[2] = new RadioButton(this);
                 rbOptions[2].setText(" " + currentQuestion.Option3);
-                rbOptions[2].setId(100 + 1);
+                rbOptions[2].setId(100 + 3);
 
                 rgOptions.addView(rbOptions[2]);
             }
@@ -157,11 +179,70 @@ public class QuizActivity extends AppCompatActivity {
             layoutQuestionOptions.addView(rgOptions);
 
         } else if (currentQuestion.Type.equals("text")) {
-            //frameQuizSubject.setBackgroundResource(R.color.background_HTML);
+            editTextAnswer = new EditText(this);
+
+            if (currentQuestion.Option1 != null && !currentQuestion.Option1.isEmpty()) {
+                editTextAnswer.setText(currentQuestion.Option1);
+            }
+
+            layoutQuestionOptions.addView(editTextAnswer);
+
         } else if (currentQuestion.Type.equals("checkbox")) {
-            //frameQuizSubject.setBackgroundResource(R.color.background_JavaScript);
+
+            chkOptions = new CheckBox[Integer.parseInt(currentQuestion.OptionsCount)];
+
+            // Option 1
+            chkOptions[0] = new CheckBox(this);
+            chkOptions[0].setText(" " + currentQuestion.Option1);
+            chkOptions[0].setId(100 + 1);
+
+            layoutQuestionOptions.addView(chkOptions[0]);
+
+            // Option 2
+            if (currentQuestion.Option2 != null && !currentQuestion.Option2.isEmpty()) {
+                chkOptions[1] = new CheckBox(this);
+                chkOptions[1].setText(" " + currentQuestion.Option2);
+                chkOptions[1].setId(100 + 2);
+
+                layoutQuestionOptions.addView(chkOptions[1]);
+            }
+
+            // Option 3
+            if (currentQuestion.Option3 != null && !currentQuestion.Option3.isEmpty()) {
+                chkOptions[2] = new CheckBox(this);
+                chkOptions[2].setText(" " + currentQuestion.Option3);
+                chkOptions[2].setId(100 + 3);
+
+                layoutQuestionOptions.addView(chkOptions[2]);
+            }
+
+            // Option 4
+            if (currentQuestion.Option4 != null && !currentQuestion.Option4.isEmpty()) {
+                chkOptions[3] = new CheckBox(this);
+                chkOptions[3].setText(" " + currentQuestion.Option4);
+                chkOptions[3].setId(100 + 4);
+
+                layoutQuestionOptions.addView(chkOptions[3]);
+            }
         }
 
+    }
+
+    private void checkUserAnswer()
+    {
+        TextView txtCorrect= new TextView(this);
+        txtCorrect.setText("Correct :)");
+        txtCorrect.setTextColor(Color.GREEN);
+        txtCorrect.setTextSize(20);
+
+
+        TextView txtWrong = new TextView(this);
+        txtWrong.setText("Wrong :(");
+        txtWrong.setTextColor(Color.RED);
+        txtWrong.setTextSize(20);
+
+        layoutQuestionOptions.addView(txtCorrect);
+        layoutQuestionOptions.addView(txtWrong);
     }
 
 }
