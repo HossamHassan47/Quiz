@@ -6,12 +6,12 @@
 
     <string name="enter_your_name">Enter your name</string>
     <string name="quiz_instructions">
-        - This quiz has 25 questions.\n
+        - This quiz has 10 questions.\n
         - Has no time limit.\n
         - At a time only 1 question is displayed.\n
         - Every question need to be attempted.\n
-        - Has a pass mark of: 80%\n
-        - Reference: w3schools.com
+        - Has a pass mark of: 70%\n
+        - Ref: SoloLearn.com
     </string>
 
     <string name="dialog_title">Quiz Instructions</string>

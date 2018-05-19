@@ -28,17 +28,17 @@
                     android:id="@+id/text_view_question_no"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:text="1/25"
                     android:layout_marginLeft="@dimen/text_margin"
                     android:gravity="center|left"
+                    android:text="1/25"
                     android:textColor="@android:color/white" />
 
                 <TextView
                     android:id="@+id/text_view_quiz_subject"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:gravity="center"
                     android:layout_weight="1"
+                    android:gravity="center"
                     android:textAppearance="?android:textAppearanceMedium"
                     android:textColor="@android:color/white"
                     android:textStyle="bold" />
@@ -47,12 +47,48 @@
                     android:id="@+id/text_view_next_question"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:text="NEXT"
                     android:layout_marginRight="@dimen/text_margin"
                     android:gravity="center|right"
+                    android:text="NEXT"
                     android:textColor="@android:color/white" />
             </LinearLayout>
         </FrameLayout>
+
+        <TextView
+            android:id="@+id/text_view_question_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="question title question title question title question title question title question title question title" />
+
+        <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RadioButton
+                android:id="@+id/radio_pirates"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="option 1" />
+
+            <RadioButton
+                android:id="@+id/radio_ninjas"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="option 2" />
+
+            <RadioButton
+                android:id="@+id/radio_ninjas3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="option 3" />
+
+            <RadioButton
+                android:id="@+id/radio_ninjas4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="option 4" />
+        </RadioGroup>
     </LinearLayout>
 
 </ScrollView>
