@@ -11,7 +11,7 @@
         - At a time only 1 question is displayed.\n
         - Every question need to be attempted.\n
         - Has a pass mark of: 70%\n
-        - Ref: SoloLearn.com
+        - Reference: SoloLearn.com
     </string>
 
     <string name="dialog_title">Quiz Instructions</string>
@@ -19,4 +19,9 @@
     <string name="dialog_cancel">Cancel</string>
 
     <string name="title_activity_quiz">Quiz</string>
+
+    <string name="message_correct">Correct</string>
+    <string name="message_wrong">Wrong</string>
+
+    <string name="quiz_finish">Finish</string>
 </resources>

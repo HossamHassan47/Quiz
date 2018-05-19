@@ -20,7 +20,6 @@ public class StartQuizFragment extends DialogFragment {
 
     NoticeDialogListener mListener;
     String strQuizSubject;
-    EditText txtUserName;
 
     @Override
     public void onAttach(Activity activity) {
@@ -44,25 +43,13 @@ public class StartQuizFragment extends DialogFragment {
 
         strQuizSubject = getArguments().getString("quizSubject");
 
-        // User Name
-        txtUserName = (EditText)view.findViewById(R.id.edit_text_user_name);
-
-
         builder.setTitle(getResources().getString(R.string.dialog_title))
                 .setView(view)
                 .setPositiveButton(getResources().getString(R.string.dialog_ok), new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
 
-                        String userName = txtUserName.getText().toString();
-
-                        if (userName == null || userName.isEmpty()) {
-                            Toast.makeText(getActivity(), "Please enter your name.", Toast.LENGTH_SHORT).show();
-                            return;
-                        }
-
                         Intent intent = new Intent(getContext(), QuizActivity.class);
 
-                        intent.putExtra("userName", userName);
                         intent.putExtra("quizSubject", strQuizSubject);
 
                         startActivity(intent);

@@ -9,4 +9,7 @@
     <color name="background_HTML">#FF5722</color>
     <color name="background_JavaScript">#8BC34A</color>
 
+    <color name="message_green">#8BC34A</color>
+    <color name="message_red">#FF5722</color>
+
 </resources>

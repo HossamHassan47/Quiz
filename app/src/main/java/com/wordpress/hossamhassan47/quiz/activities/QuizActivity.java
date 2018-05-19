@@ -1,11 +1,16 @@
 package com.wordpress.hossamhassan47.quiz.activities;
 
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -23,11 +28,11 @@ import com.wordpress.hossamhassan47.quiz.model.JsonHelper;
 import com.wordpress.hossamhassan47.quiz.model.Question;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class QuizActivity extends AppCompatActivity {
 
     String quizSubject;
-    String userName;
 
     ArrayList<Question> lstQuestions;
 
@@ -54,7 +59,6 @@ public class QuizActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         quizSubject = getIntent().getExtras().getString("quizSubject");
-        userName = getIntent().getExtras().getString("quizSubject");
 
         // Set Quiz Subject
         TextView txtQuizSubject = findViewById(R.id.text_view_quiz_subject);
@@ -77,11 +81,16 @@ public class QuizActivity extends AppCompatActivity {
         // Submit button
         btnSubmitQuestion = findViewById(R.id.button_submit_answer);
         btnSubmitQuestion.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onClick(View view) {
-
                 // Check user answer
-                checkUserAnswer();
+                boolean isCorrect = isCorrectAnswer();
+                if (isCorrect) {
+                    quizMark += 1;
+                }
+
+                displayMessage(isCorrect);
 
                 btnNextQuestion.setEnabled(true);
                 btnSubmitQuestion.setEnabled(false);
@@ -95,6 +104,9 @@ public class QuizActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (currentQuestionIndex >= (lstQuestions.size() - 1)) {
+                    // Display quiz mark
+                    String result = "Your mark is " + quizMark + " of " + lstQuestions.size();
+                    Toast.makeText(getApplicationContext(), result, Toast.LENGTH_LONG).show();
                     return;
                 }
 
@@ -119,8 +131,10 @@ public class QuizActivity extends AppCompatActivity {
         if (lstQuestions.size() > 0) {
             displayQuestion(0);
         }
+        else {
+            btnSubmitQuestion.setEnabled(false);
+        }
     }
-
 
     private void displayQuestion(int index) {
         // Get current question
@@ -228,21 +242,59 @@ public class QuizActivity extends AppCompatActivity {
 
     }
 
-    private void checkUserAnswer()
-    {
-        TextView txtCorrect= new TextView(this);
-        txtCorrect.setText("Correct :)");
-        txtCorrect.setTextColor(Color.GREEN);
-        txtCorrect.setTextSize(20);
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    private boolean isCorrectAnswer() {
+        String userAnswer = "";
 
+        switch (currentQuestion.Type) {
+            case "text":
+                userAnswer = editTextAnswer.getText().toString().trim();
+                break;
+            case "radio":
+                for (int i = 0; i < rbOptions.length; i++) {
+                    if (rbOptions[i].isChecked()) {
+                        userAnswer = rbOptions[i].getText().toString().trim();
+                        break;
+                    }
+                }
 
-        TextView txtWrong = new TextView(this);
-        txtWrong.setText("Wrong :(");
-        txtWrong.setTextColor(Color.RED);
-        txtWrong.setTextSize(20);
+                break;
+            case "checkbox":
+                for (int i = 0; i < chkOptions.length; i++) {
+                    if (chkOptions[i].isChecked()) {
+                        userAnswer += chkOptions[i].getText().toString().trim() + ",";
+                    }
+                }
 
-        layoutQuestionOptions.addView(txtCorrect);
-        layoutQuestionOptions.addView(txtWrong);
+                if (userAnswer != null && userAnswer.length() > 0 && userAnswer.charAt(userAnswer.length() - 1) == ',') {
+                    userAnswer = userAnswer.substring(0, userAnswer.length() - 1);
+                }
+
+                break;
+        }
+
+        Log.v("user answer", userAnswer);
+        Log.v("correct answer", currentQuestion.CorrectAnswer);
+        Log.v("is correct", userAnswer.equals(currentQuestion.CorrectAnswer) + "");
+
+        return Objects.equals(currentQuestion.CorrectAnswer, userAnswer);
     }
 
+    private void displayMessage(boolean isCorrectAnswer) {
+        TextView txtMessage = new TextView(this);
+
+        if (isCorrectAnswer) {
+            txtMessage.setText(getResources().getString(R.string.message_correct));
+            txtMessage.setBackgroundColor(getResources().getColor(R.color.message_green));
+        } else {
+            txtMessage.setText(getResources().getString(R.string.message_wrong));
+            txtMessage.setBackgroundColor(getResources().getColor(R.color.message_red));
+        }
+
+        txtMessage.setTextColor(Color.WHITE);
+        txtMessage.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
+        txtMessage.setPadding(8, 8, 8, 8);
+        txtMessage.setGravity(Gravity.CENTER);
+        layoutQuestionOptions.addView(txtMessage);
+    }
 }

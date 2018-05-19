@@ -17,15 +17,6 @@
             android:layout_margin="@dimen/text_margin"
             android:text="@string/quiz_instructions" />
 
-        <EditText
-            android:id="@+id/edit_text_user_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/text_margin"
-            android:hint="@string/enter_your_name"
-            android:inputType="textCapWords" />
-
-
     </LinearLayout>
 
 </FrameLayout>
