@@ -1,6 +1,9 @@
 package com.wordpress.hossamhassan47.quiz.activities;
 
+import android.content.Context;
 import android.graphics.Color;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
@@ -14,6 +17,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -25,6 +29,8 @@ import com.wordpress.hossamhassan47.quiz.helper.JsonHelper;
 import com.wordpress.hossamhassan47.quiz.model.Question;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Objects;
 
 public class QuizActivity extends AppCompatActivity {
@@ -44,9 +50,13 @@ public class QuizActivity extends AppCompatActivity {
     Button btnSubmitQuestion;
     Button btnNextQuestion;
 
-    RadioButton[] rbOptions;
-    CheckBox[] chkOptions;
+    List<RadioButton> rbOptions;
+    List<CheckBox> chkOptions;
     EditText editTextAnswer;
+
+    private MediaPlayer mMediaPlayer;
+
+    private AudioManager mAudioManger;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +64,8 @@ public class QuizActivity extends AppCompatActivity {
         setContentView(R.layout.activity_quiz);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        mAudioManger = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
 
         // Set Quiz Subject
         quizSubject = getIntent().getExtras().getString("quizSubject");
@@ -92,6 +104,12 @@ public class QuizActivity extends AppCompatActivity {
 
                 // Display Correct/Wrong answer message
                 displayMessage(isCorrect);
+
+                // Color Correct/Wrong answers
+                highlightUserAnswer(isCorrect);
+
+                // Play Sound
+                playSound(isCorrect);
 
                 // Enable Next button
                 btnNextQuestion.setEnabled(true);
@@ -141,7 +159,6 @@ public class QuizActivity extends AppCompatActivity {
         }
     }
 
-
     private void displayQuestion(int index) {
         // Get current question
         currentQuestion = lstQuestions.get(index);
@@ -156,41 +173,42 @@ public class QuizActivity extends AppCompatActivity {
 
         // Display the current question
         if (currentQuestion.Type.equals("radio")) {
-            // Initiate radio button array with size equals the question options count
-            rbOptions = new RadioButton[Integer.parseInt(currentQuestion.OptionsCount)];
+            rbOptions = new ArrayList<RadioButton>();
 
             // Create Radio Group
             RadioGroup rgOptions = new RadioGroup(this);
             rgOptions.setOrientation(RadioGroup.VERTICAL);
 
             // Create Radio button for Option 1
-            rbOptions[0] = new RadioButton(this);
-            rbOptions[0].setText(" " + currentQuestion.Option1);
-
-            rgOptions.addView(rbOptions[0]);
+            RadioButton radioButton1 = new RadioButton(this);
+            radioButton1.setText("" + currentQuestion.Option1);
+            rbOptions.add(radioButton1);
 
             // Create Radio button for Option 2
             if (currentQuestion.Option2 != null && !currentQuestion.Option2.isEmpty()) {
-                rbOptions[1] = new RadioButton(this);
-                rbOptions[1].setText(" " + currentQuestion.Option2);
-
-                rgOptions.addView(rbOptions[1]);
+                RadioButton radioButton2 = new RadioButton(this);
+                radioButton2.setText("" + currentQuestion.Option2);
+                rbOptions.add(radioButton2);
             }
 
             // Create Radio button for Option 3
             if (currentQuestion.Option3 != null && !currentQuestion.Option3.isEmpty()) {
-                rbOptions[2] = new RadioButton(this);
-                rbOptions[2].setText(" " + currentQuestion.Option3);
-
-                rgOptions.addView(rbOptions[2]);
+                RadioButton radioButton3 = new RadioButton(this);
+                radioButton3.setText("" + currentQuestion.Option3);
+                rbOptions.add(radioButton3);
             }
 
             // Create Radio button for Option 4
             if (currentQuestion.Option4 != null && !currentQuestion.Option4.isEmpty()) {
-                rbOptions[3] = new RadioButton(this);
-                rbOptions[3].setText(" " + currentQuestion.Option4);
+                RadioButton radioButton4 = new RadioButton(this);
+                radioButton4.setText("" + currentQuestion.Option4);
+                rbOptions.add(radioButton4);
+            }
 
-                rgOptions.addView(rbOptions[3]);
+            Collections.shuffle(rbOptions);
+
+            for (int i = 0; i < rbOptions.size(); i++) {
+                rgOptions.addView(rbOptions.get(i));
             }
 
             layoutQuestionOptions.addView(rgOptions);
@@ -207,36 +225,38 @@ public class QuizActivity extends AppCompatActivity {
 
         } else if (currentQuestion.Type.equals("checkbox")) {
             // Create Check Box array with size equals the options count
-            chkOptions = new CheckBox[Integer.parseInt(currentQuestion.OptionsCount)];
+            chkOptions = new ArrayList<CheckBox>();
 
             // Create checkbox for Option 1
-            chkOptions[0] = new CheckBox(this);
-            chkOptions[0].setText(" " + currentQuestion.Option1);
-
-            layoutQuestionOptions.addView(chkOptions[0]);
+            CheckBox checkBox1 = new CheckBox(this);
+            checkBox1.setText("" + currentQuestion.Option1);
+            chkOptions.add(checkBox1);
 
             // Create checkbox for Option 2
             if (currentQuestion.Option2 != null && !currentQuestion.Option2.isEmpty()) {
-                chkOptions[1] = new CheckBox(this);
-                chkOptions[1].setText(" " + currentQuestion.Option2);
-
-                layoutQuestionOptions.addView(chkOptions[1]);
+                CheckBox checkBox2 = new CheckBox(this);
+                checkBox2.setText("" + currentQuestion.Option2);
+                chkOptions.add(checkBox2);
             }
 
             // Create checkbox for Option 3
             if (currentQuestion.Option3 != null && !currentQuestion.Option3.isEmpty()) {
-                chkOptions[2] = new CheckBox(this);
-                chkOptions[2].setText(" " + currentQuestion.Option3);
-
-                layoutQuestionOptions.addView(chkOptions[2]);
+                CheckBox checkBox3 = new CheckBox(this);
+                checkBox3.setText("" + currentQuestion.Option3);
+                chkOptions.add(checkBox3);
             }
 
             // Create checkbox for Option 4
             if (currentQuestion.Option4 != null && !currentQuestion.Option4.isEmpty()) {
-                chkOptions[3] = new CheckBox(this);
-                chkOptions[3].setText(" " + currentQuestion.Option4);
+                CheckBox checkBox4 = new CheckBox(this);
+                checkBox4.setText("" + currentQuestion.Option4);
+                chkOptions.add(checkBox4);
+            }
 
-                layoutQuestionOptions.addView(chkOptions[3]);
+            //Collections.shuffle(chkOptions);
+
+            for (int i = 0; i < chkOptions.size(); i++) {
+                layoutQuestionOptions.addView(chkOptions.get(i));
             }
         }
     }
@@ -250,17 +270,17 @@ public class QuizActivity extends AppCompatActivity {
                 userAnswer = editTextAnswer.getText().toString().trim();
                 break;
             case "radio":
-                for (int i = 0; i < rbOptions.length; i++) {
-                    if (rbOptions[i].isChecked()) {
-                        userAnswer = rbOptions[i].getText().toString().trim();
+                for (int i = 0; i < rbOptions.size(); i++) {
+                    if (rbOptions.get(i).isChecked()) {
+                        userAnswer = rbOptions.get(i).getText().toString().trim();
                         break;
                     }
                 }
                 break;
             case "checkbox":
-                for (int i = 0; i < chkOptions.length; i++) {
-                    if (chkOptions[i].isChecked()) {
-                        userAnswer += chkOptions[i].getText().toString().trim() + ",";
+                for (int i = 0; i < chkOptions.size(); i++) {
+                    if (chkOptions.get(i).isChecked()) {
+                        userAnswer += chkOptions.get(i).getText().toString().trim() + ",";
                     }
                 }
 
@@ -271,11 +291,46 @@ public class QuizActivity extends AppCompatActivity {
                 break;
         }
 
-        //Log.v("user answer", userAnswer);
-        //Log.v("correct answer", currentQuestion.CorrectAnswer);
-        //Log.v("is correct", userAnswer.equals(currentQuestion.CorrectAnswer) + "");
-
+        Log.v("Correct Answer", currentQuestion.CorrectAnswer);
+        Log.v("User Answer", userAnswer);
+        Log.v("Is Correct", Objects.equals(currentQuestion.CorrectAnswer, userAnswer) + "");
         return Objects.equals(currentQuestion.CorrectAnswer, userAnswer);
+    }
+
+    private void highlightUserAnswer(boolean isCorrect) {
+
+        switch (currentQuestion.Type) {
+            case "text":
+                editTextAnswer.setTextColor(isCorrect ? getResources().getColor(R.color.correct_answer) :
+                        getResources().getColor(R.color.wrong_answer));
+                break;
+            case "radio":
+                for (int i = 0; i < rbOptions.size(); i++) {
+                    // Color correct answer with Green
+                    if (currentQuestion.CorrectAnswer.equals(rbOptions.get(i).getText().toString().trim())) {
+                        rbOptions.get(i).setTextColor(getResources().getColor(R.color.correct_answer));
+                    }
+
+                    if (!isCorrect && rbOptions.get(i).isChecked()) {
+                        rbOptions.get(i).setTextColor(getResources().getColor(R.color.wrong_answer));
+                    }
+                }
+                break;
+            case "checkbox":
+                for (int i = 0; i < chkOptions.size(); i++) {
+                    // Color correct answer with Green
+                    if (currentQuestion.CorrectAnswer.contains(chkOptions.get(i).getText().toString().trim())) {
+                        chkOptions.get(i).setTextColor(getResources().getColor(R.color.correct_answer));
+                    }
+
+                    // Color wrong answer with Red
+                    if (!isCorrect && chkOptions.get(i).isChecked()
+                            && !currentQuestion.CorrectAnswer.contains(chkOptions.get(i).getText().toString().trim())) {
+                        chkOptions.get(i).setTextColor(getResources().getColor(R.color.wrong_answer));
+                    }
+                }
+                break;
+        }
     }
 
     private void displayMessage(boolean isCorrectAnswer) {
@@ -302,24 +357,104 @@ public class QuizActivity extends AppCompatActivity {
     }
 
     private void displayQuizResult() {
-        String result = "";
+        // Clear activity
+        txtQuestionTitle.setVisibility(View.GONE);
 
-        if (quizMark < 7) {
-            result = "Sorry, You didn't pass the quiz. \nYour mark is " + quizMark + " of " + lstQuestions.size() + ".";
-        } else {
-            result = "Congratulations, You passed the quiz. \nYour mark is " + quizMark + " of " + lstQuestions.size() + ".";
-        }
+        btnSubmitQuestion.setVisibility(View.GONE);
+        btnNextQuestion.setVisibility(View.GONE);
 
-        txtQuestionTitle.setText(result);
-
-        Toast.makeText(getApplicationContext(), result, Toast.LENGTH_LONG).show();
-
-        // Clear previous question
         if (layoutQuestionOptions.getChildCount() > 0) {
             layoutQuestionOptions.removeAllViews();
         }
 
-        btnSubmitQuestion.setVisibility(View.GONE);
-        btnNextQuestion.setVisibility(View.GONE);
+        // Check if passed or not
+        boolean passed = quizMark >= 7;
+
+        // Quiz Result
+        String result;
+        if (passed) {
+            result = "Congratulations, You passed! \nYour Score: " + quizMark + " \nPassing Score: 7";
+        } else {
+            result = "Sorry, You didn't pass. \nYour Score: " + quizMark + " \nPassing Score: 7";
+        }
+
+        // Show result in Toast
+        Toast.makeText(getApplicationContext(), result, Toast.LENGTH_LONG).show();
+
+        // Display result emotion icon
+        ImageView imageView = new ImageView(this);
+        imageView.setImageResource(passed ? R.drawable.ic_emoticon_grey600_48dp : R.drawable.ic_emoticon_sad_grey600_48dp);
+        layoutQuestionOptions.addView(imageView);
+
+        // Display result text view
+        TextView textView = new TextView(this);
+        textView.setText(result);
+        textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
+        textView.setGravity(Gravity.CENTER);
+        layoutQuestionOptions.addView(textView);
+    }
+
+    private void playSound(boolean isCorrect) {
+
+        releaseMediaPlayer();
+
+        // Request audio focus
+        int result = mAudioManger.requestAudioFocus(afChangeListener,
+                AudioManager.STREAM_MUSIC,
+                AudioManager.AUDIOFOCUS_GAIN_TRANSIENT);
+
+        if (result == AudioManager.AUDIOFOCUS_REQUEST_GRANTED) {
+
+            // We have audio focus now
+            if (isCorrect) {
+                mMediaPlayer = MediaPlayer.create(QuizActivity.this, R.raw.correct_answer);
+            } else {
+                mMediaPlayer = MediaPlayer.create(QuizActivity.this, R.raw.incorrect_answer);
+            }
+
+            mMediaPlayer.start();
+
+            mMediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                @Override
+                public void onCompletion(MediaPlayer mp) {
+                    releaseMediaPlayer();
+                }
+            });
+        }
+    }
+
+    AudioManager.OnAudioFocusChangeListener afChangeListener =
+            new AudioManager.OnAudioFocusChangeListener() {
+                public void onAudioFocusChange(int focusChange) {
+                    if (focusChange == AudioManager.AUDIOFOCUS_LOSS) {
+                        // Permanent loss of audio focus
+                        // Pause playback immediately
+                        releaseMediaPlayer();
+                    } else if (focusChange == AudioManager.AUDIOFOCUS_LOSS_TRANSIENT ||
+                            focusChange == AudioManager.AUDIOFOCUS_LOSS_TRANSIENT_CAN_DUCK) {
+                        // Pause playback
+                        mMediaPlayer.pause();
+                        mMediaPlayer.seekTo(0);
+                    } else if (focusChange == AudioManager.AUDIOFOCUS_GAIN) {
+                        // Your app has been granted audio focus again
+                        // Raise volume to normal, restart playback if necessary
+                        mMediaPlayer.start();
+                    }
+                }
+            };
+
+    private void releaseMediaPlayer() {
+        // If the media player is not null, then it may be currently playing a sound.
+        if (mMediaPlayer != null) {
+            // Regardless of the current state of the media player, release its resources
+            // because we no longer need it.
+            mMediaPlayer.release();
+
+            // Set the media player back to null. For our code, we've decided that
+            // setting the media player to null is an easy way to tell that the media player
+            // is not configured to play an audio file at the moment.
+            mMediaPlayer = null;
+            mAudioManger.abandonAudioFocus(afChangeListener);
+        }
     }
 }

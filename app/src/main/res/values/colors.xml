@@ -12,4 +12,7 @@
     <color name="message_green">#8BC34A</color>
     <color name="message_red">#FF5722</color>
 
+    <color name="correct_answer">#558B2F</color>
+    <color name="wrong_answer">#D84315</color>
+
 </resources>
