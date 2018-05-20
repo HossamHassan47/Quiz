@@ -109,9 +109,7 @@ public class QuizActivity extends AppCompatActivity {
             public void onClick(View view) {
                 // No more question --> Display quiz result summary
                 if (currentQuestionIndex >= (lstQuestions.size() - 1)) {
-                    String result = "Your mark is " + quizMark + " of " + lstQuestions.size();
-
-                    Toast.makeText(getApplicationContext(), result, Toast.LENGTH_LONG).show();
+                    displayQuizResult();
                     return;
                 }
 
@@ -168,7 +166,6 @@ public class QuizActivity extends AppCompatActivity {
             // Create Radio button for Option 1
             rbOptions[0] = new RadioButton(this);
             rbOptions[0].setText(" " + currentQuestion.Option1);
-            rbOptions[0].setId(100 + 1);
 
             rgOptions.addView(rbOptions[0]);
 
@@ -176,7 +173,6 @@ public class QuizActivity extends AppCompatActivity {
             if (currentQuestion.Option2 != null && !currentQuestion.Option2.isEmpty()) {
                 rbOptions[1] = new RadioButton(this);
                 rbOptions[1].setText(" " + currentQuestion.Option2);
-                rbOptions[1].setId(100 + 2);
 
                 rgOptions.addView(rbOptions[1]);
             }
@@ -185,7 +181,6 @@ public class QuizActivity extends AppCompatActivity {
             if (currentQuestion.Option3 != null && !currentQuestion.Option3.isEmpty()) {
                 rbOptions[2] = new RadioButton(this);
                 rbOptions[2].setText(" " + currentQuestion.Option3);
-                rbOptions[2].setId(100 + 3);
 
                 rgOptions.addView(rbOptions[2]);
             }
@@ -194,7 +189,6 @@ public class QuizActivity extends AppCompatActivity {
             if (currentQuestion.Option4 != null && !currentQuestion.Option4.isEmpty()) {
                 rbOptions[3] = new RadioButton(this);
                 rbOptions[3].setText(" " + currentQuestion.Option4);
-                rbOptions[3].setId(100 + 4);
 
                 rgOptions.addView(rbOptions[3]);
             }
@@ -218,7 +212,6 @@ public class QuizActivity extends AppCompatActivity {
             // Create checkbox for Option 1
             chkOptions[0] = new CheckBox(this);
             chkOptions[0].setText(" " + currentQuestion.Option1);
-            chkOptions[0].setId(100 + 1);
 
             layoutQuestionOptions.addView(chkOptions[0]);
 
@@ -226,7 +219,6 @@ public class QuizActivity extends AppCompatActivity {
             if (currentQuestion.Option2 != null && !currentQuestion.Option2.isEmpty()) {
                 chkOptions[1] = new CheckBox(this);
                 chkOptions[1].setText(" " + currentQuestion.Option2);
-                chkOptions[1].setId(100 + 2);
 
                 layoutQuestionOptions.addView(chkOptions[1]);
             }
@@ -235,7 +227,6 @@ public class QuizActivity extends AppCompatActivity {
             if (currentQuestion.Option3 != null && !currentQuestion.Option3.isEmpty()) {
                 chkOptions[2] = new CheckBox(this);
                 chkOptions[2].setText(" " + currentQuestion.Option3);
-                chkOptions[2].setId(100 + 3);
 
                 layoutQuestionOptions.addView(chkOptions[2]);
             }
@@ -244,7 +235,6 @@ public class QuizActivity extends AppCompatActivity {
             if (currentQuestion.Option4 != null && !currentQuestion.Option4.isEmpty()) {
                 chkOptions[3] = new CheckBox(this);
                 chkOptions[3].setText(" " + currentQuestion.Option4);
-                chkOptions[3].setId(100 + 4);
 
                 layoutQuestionOptions.addView(chkOptions[3]);
             }
@@ -309,5 +299,27 @@ public class QuizActivity extends AppCompatActivity {
 
         // Finally, display the message
         layoutQuestionOptions.addView(txtMessage);
+    }
+
+    private void displayQuizResult() {
+        String result = "";
+
+        if (quizMark < 7) {
+            result = "Sorry, You didn't pass the quiz. \nYour mark is " + quizMark + " of " + lstQuestions.size() + ".";
+        } else {
+            result = "Congratulations, You passed the quiz. \nYour mark is " + quizMark + " of " + lstQuestions.size() + ".";
+        }
+
+        txtQuestionTitle.setText(result);
+
+        Toast.makeText(getApplicationContext(), result, Toast.LENGTH_LONG).show();
+
+        // Clear previous question
+        if (layoutQuestionOptions.getChildCount() > 0) {
+            layoutQuestionOptions.removeAllViews();
+        }
+
+        btnSubmitQuestion.setVisibility(View.GONE);
+        btnNextQuestion.setVisibility(View.GONE);
     }
 }
