@@ -62,6 +62,7 @@ public class MainActivity extends AppCompatActivity implements NoticeDialogListe
             }
         });
     }
+
     @Override
     public void onDialogPositiveClick(DialogFragment dialog) {
 

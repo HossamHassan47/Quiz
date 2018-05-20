@@ -4,8 +4,6 @@ import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -23,8 +21,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.wordpress.hossamhassan47.quiz.R;
-import com.wordpress.hossamhassan47.quiz.fragments.StartQuizFragment;
-import com.wordpress.hossamhassan47.quiz.model.JsonHelper;
+import com.wordpress.hossamhassan47.quiz.helper.JsonHelper;
 import com.wordpress.hossamhassan47.quiz.model.Question;
 
 import java.util.ArrayList;
@@ -58,14 +55,15 @@ public class QuizActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        // Set Quiz Subject
         quizSubject = getIntent().getExtras().getString("quizSubject");
 
-        // Set Quiz Subject
         TextView txtQuizSubject = findViewById(R.id.text_view_quiz_subject);
         txtQuizSubject.setText(quizSubject);
 
         FrameLayout frameQuizSubject = findViewById(R.id.frame_layout_quiz_subject);
 
+        // Set Subject Background based on Module
         if (quizSubject.equals("CSS")) {
             frameQuizSubject.setBackgroundResource(R.color.background_CSS);
         } else if (quizSubject.equals("HTML")) {
@@ -86,13 +84,19 @@ public class QuizActivity extends AppCompatActivity {
             public void onClick(View view) {
                 // Check user answer
                 boolean isCorrect = isCorrectAnswer();
+
                 if (isCorrect) {
+                    // Increment user mark by 1
                     quizMark += 1;
                 }
 
+                // Display Correct/Wrong answer message
                 displayMessage(isCorrect);
 
+                // Enable Next button
                 btnNextQuestion.setEnabled(true);
+
+                // Disable Submit button
                 btnSubmitQuestion.setEnabled(false);
             }
         });
@@ -103,9 +107,10 @@ public class QuizActivity extends AppCompatActivity {
         btnNextQuestion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                // No more question --> Display quiz result summary
                 if (currentQuestionIndex >= (lstQuestions.size() - 1)) {
-                    // Display quiz mark
                     String result = "Your mark is " + quizMark + " of " + lstQuestions.size();
+
                     Toast.makeText(getApplicationContext(), result, Toast.LENGTH_LONG).show();
                     return;
                 }
@@ -114,27 +119,30 @@ public class QuizActivity extends AppCompatActivity {
                 currentQuestionIndex++;
                 displayQuestion(currentQuestionIndex);
 
+                // Disable Next button
                 btnNextQuestion.setEnabled(false);
+
+                // Enable Submit button
                 btnSubmitQuestion.setEnabled(true);
 
+                // Last question --> Display Finish button
                 if (currentQuestionIndex == (lstQuestions.size() - 1)) {
-                    // Last question
-                    btnNextQuestion.setText("Finish");
+                    btnNextQuestion.setText(getResources().getString(R.string.quiz_finish));
                 }
             }
         });
 
-        // Read questions
+        // Read questions based on quiz subject CSS, HTML, JavaScript...etc.
         lstQuestions = JsonHelper.ReadQuestions(getApplicationContext(), quizSubject);
 
-        // Display 1st question
+        // Valid question list --> Display the 1st question
         if (lstQuestions.size() > 0) {
             displayQuestion(0);
-        }
-        else {
+        } else {
             btnSubmitQuestion.setEnabled(false);
         }
     }
+
 
     private void displayQuestion(int index) {
         // Get current question
@@ -143,27 +151,28 @@ public class QuizActivity extends AppCompatActivity {
         // Set question title text view
         txtQuestionTitle.setText(currentQuestion.Title);
 
-        // Clear previous options if any exists
+        // Clear previous question
         if (layoutQuestionOptions.getChildCount() > 0) {
             layoutQuestionOptions.removeAllViews();
         }
 
-        // Add the current options based on question Type
+        // Display the current question
         if (currentQuestion.Type.equals("radio")) {
-
+            // Initiate radio button array with size equals the question options count
             rbOptions = new RadioButton[Integer.parseInt(currentQuestion.OptionsCount)];
 
+            // Create Radio Group
             RadioGroup rgOptions = new RadioGroup(this);
             rgOptions.setOrientation(RadioGroup.VERTICAL);
 
-            // Option 1
+            // Create Radio button for Option 1
             rbOptions[0] = new RadioButton(this);
             rbOptions[0].setText(" " + currentQuestion.Option1);
             rbOptions[0].setId(100 + 1);
 
             rgOptions.addView(rbOptions[0]);
 
-            // Option 2
+            // Create Radio button for Option 2
             if (currentQuestion.Option2 != null && !currentQuestion.Option2.isEmpty()) {
                 rbOptions[1] = new RadioButton(this);
                 rbOptions[1].setText(" " + currentQuestion.Option2);
@@ -172,7 +181,7 @@ public class QuizActivity extends AppCompatActivity {
                 rgOptions.addView(rbOptions[1]);
             }
 
-            // Option 3
+            // Create Radio button for Option 3
             if (currentQuestion.Option3 != null && !currentQuestion.Option3.isEmpty()) {
                 rbOptions[2] = new RadioButton(this);
                 rbOptions[2].setText(" " + currentQuestion.Option3);
@@ -181,7 +190,7 @@ public class QuizActivity extends AppCompatActivity {
                 rgOptions.addView(rbOptions[2]);
             }
 
-            // Option 4
+            // Create Radio button for Option 4
             if (currentQuestion.Option4 != null && !currentQuestion.Option4.isEmpty()) {
                 rbOptions[3] = new RadioButton(this);
                 rbOptions[3].setText(" " + currentQuestion.Option4);
@@ -193,6 +202,7 @@ public class QuizActivity extends AppCompatActivity {
             layoutQuestionOptions.addView(rgOptions);
 
         } else if (currentQuestion.Type.equals("text")) {
+            // Create Edit Text
             editTextAnswer = new EditText(this);
 
             if (currentQuestion.Option1 != null && !currentQuestion.Option1.isEmpty()) {
@@ -202,17 +212,17 @@ public class QuizActivity extends AppCompatActivity {
             layoutQuestionOptions.addView(editTextAnswer);
 
         } else if (currentQuestion.Type.equals("checkbox")) {
-
+            // Create Check Box array with size equals the options count
             chkOptions = new CheckBox[Integer.parseInt(currentQuestion.OptionsCount)];
 
-            // Option 1
+            // Create checkbox for Option 1
             chkOptions[0] = new CheckBox(this);
             chkOptions[0].setText(" " + currentQuestion.Option1);
             chkOptions[0].setId(100 + 1);
 
             layoutQuestionOptions.addView(chkOptions[0]);
 
-            // Option 2
+            // Create checkbox for Option 2
             if (currentQuestion.Option2 != null && !currentQuestion.Option2.isEmpty()) {
                 chkOptions[1] = new CheckBox(this);
                 chkOptions[1].setText(" " + currentQuestion.Option2);
@@ -221,7 +231,7 @@ public class QuizActivity extends AppCompatActivity {
                 layoutQuestionOptions.addView(chkOptions[1]);
             }
 
-            // Option 3
+            // Create checkbox for Option 3
             if (currentQuestion.Option3 != null && !currentQuestion.Option3.isEmpty()) {
                 chkOptions[2] = new CheckBox(this);
                 chkOptions[2].setText(" " + currentQuestion.Option3);
@@ -230,7 +240,7 @@ public class QuizActivity extends AppCompatActivity {
                 layoutQuestionOptions.addView(chkOptions[2]);
             }
 
-            // Option 4
+            // Create checkbox for Option 4
             if (currentQuestion.Option4 != null && !currentQuestion.Option4.isEmpty()) {
                 chkOptions[3] = new CheckBox(this);
                 chkOptions[3].setText(" " + currentQuestion.Option4);
@@ -239,7 +249,6 @@ public class QuizActivity extends AppCompatActivity {
                 layoutQuestionOptions.addView(chkOptions[3]);
             }
         }
-
     }
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
@@ -257,7 +266,6 @@ public class QuizActivity extends AppCompatActivity {
                         break;
                     }
                 }
-
                 break;
             case "checkbox":
                 for (int i = 0; i < chkOptions.length; i++) {
@@ -266,23 +274,25 @@ public class QuizActivity extends AppCompatActivity {
                     }
                 }
 
+                // Trim the last character ','
                 if (userAnswer != null && userAnswer.length() > 0 && userAnswer.charAt(userAnswer.length() - 1) == ',') {
                     userAnswer = userAnswer.substring(0, userAnswer.length() - 1);
                 }
-
                 break;
         }
 
-        Log.v("user answer", userAnswer);
-        Log.v("correct answer", currentQuestion.CorrectAnswer);
-        Log.v("is correct", userAnswer.equals(currentQuestion.CorrectAnswer) + "");
+        //Log.v("user answer", userAnswer);
+        //Log.v("correct answer", currentQuestion.CorrectAnswer);
+        //Log.v("is correct", userAnswer.equals(currentQuestion.CorrectAnswer) + "");
 
         return Objects.equals(currentQuestion.CorrectAnswer, userAnswer);
     }
 
     private void displayMessage(boolean isCorrectAnswer) {
+        // Create message text view
         TextView txtMessage = new TextView(this);
 
+        // Set message text and background color based for Correct/Wrong answers
         if (isCorrectAnswer) {
             txtMessage.setText(getResources().getString(R.string.message_correct));
             txtMessage.setBackgroundColor(getResources().getColor(R.color.message_green));
@@ -291,10 +301,13 @@ public class QuizActivity extends AppCompatActivity {
             txtMessage.setBackgroundColor(getResources().getColor(R.color.message_red));
         }
 
+        // Set message color, text size, padding, gravity
         txtMessage.setTextColor(Color.WHITE);
         txtMessage.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
         txtMessage.setPadding(8, 8, 8, 8);
         txtMessage.setGravity(Gravity.CENTER);
+
+        // Finally, display the message
         layoutQuestionOptions.addView(txtMessage);
     }
 }
