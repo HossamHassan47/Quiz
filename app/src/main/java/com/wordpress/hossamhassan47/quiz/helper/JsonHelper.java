@@ -17,8 +17,16 @@ public class JsonHelper {
 
     public static ArrayList<Question> ReadQuestions(Context context, String subject) {
 
-        // Get questions data from res/raw/questions Json file
-        InputStream inputStream = context.getResources().openRawResource(R.raw.questions);
+        // Get questions data from res/raw/questions Json file based on subject
+        InputStream inputStream;
+        if (subject.equals("CSS")) {
+            inputStream = context.getResources().openRawResource(R.raw.questions_css);
+        } else if (subject.equals("HTML")) {
+            inputStream = context.getResources().openRawResource(R.raw.questions_html);
+        } else {
+            inputStream = context.getResources().openRawResource(R.raw.questions_javascript);
+        }
+
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
 
         int ctr;
@@ -50,16 +58,16 @@ public class JsonHelper {
                 // Create question object
                 Question question = new Question();
 
-                // Read question details
-                question.Id = jArray.getJSONObject(i).getString("Id");
-                question.Title = jArray.getJSONObject(i).getString("Title");
-                question.Option1 = jArray.getJSONObject(i).getString("Option1");
-                question.Option2 = jArray.getJSONObject(i).getString("Option2");
-                question.Option3 = jArray.getJSONObject(i).getString("Option3");
-                question.Option4 = jArray.getJSONObject(i).getString("Option4");
-                question.CorrectAnswer = jArray.getJSONObject(i).getString("CorrectAnswer");
-                question.Type = jArray.getJSONObject(i).getString("Type");
-                question.OptionsCount = jArray.getJSONObject(i).getString("OptionsCount");
+                // Set question details
+                question.setId(jArray.getJSONObject(i).getString("Id"));
+                question.setTitle(jArray.getJSONObject(i).getString("Title"));
+                question.setOption1(jArray.getJSONObject(i).getString("Option1"));
+                question.setOption2(jArray.getJSONObject(i).getString("Option2"));
+                question.setOption3(jArray.getJSONObject(i).getString("Option3"));
+                question.setOption4(jArray.getJSONObject(i).getString("Option4"));
+                question.setCorrectAnswer(jArray.getJSONObject(i).getString("CorrectAnswer"));
+                question.setType(jArray.getJSONObject(i).getString("Type"));
+                question.setOptionsCount(jArray.getJSONObject(i).getString("OptionsCount"));
 
                 // Add to question array list
                 questions.add(question);

@@ -164,7 +164,7 @@ public class QuizActivity extends AppCompatActivity {
         currentQuestion = lstQuestions.get(index);
 
         // Set question title text view
-        txtQuestionTitle.setText(currentQuestion.Title);
+        txtQuestionTitle.setText(currentQuestion.getTitle());
 
         // Clear previous question
         if (layoutQuestionOptions.getChildCount() > 0) {
@@ -172,7 +172,7 @@ public class QuizActivity extends AppCompatActivity {
         }
 
         // Display the current question
-        if (currentQuestion.Type.equals("radio")) {
+        if (currentQuestion.getType().equals("radio")) {
             rbOptions = new ArrayList<RadioButton>();
 
             // Create Radio Group
@@ -181,27 +181,27 @@ public class QuizActivity extends AppCompatActivity {
 
             // Create Radio button for Option 1
             RadioButton radioButton1 = new RadioButton(this);
-            radioButton1.setText("" + currentQuestion.Option1);
+            radioButton1.setText("" + currentQuestion.getOption1());
             rbOptions.add(radioButton1);
 
             // Create Radio button for Option 2
-            if (currentQuestion.Option2 != null && !currentQuestion.Option2.isEmpty()) {
+            if (currentQuestion.getOption2() != null && !currentQuestion.getOption2().isEmpty()) {
                 RadioButton radioButton2 = new RadioButton(this);
-                radioButton2.setText("" + currentQuestion.Option2);
+                radioButton2.setText("" + currentQuestion.getOption2());
                 rbOptions.add(radioButton2);
             }
 
             // Create Radio button for Option 3
-            if (currentQuestion.Option3 != null && !currentQuestion.Option3.isEmpty()) {
+            if (currentQuestion.getOption3() != null && !currentQuestion.getOption3().isEmpty()) {
                 RadioButton radioButton3 = new RadioButton(this);
-                radioButton3.setText("" + currentQuestion.Option3);
+                radioButton3.setText("" + currentQuestion.getOption3());
                 rbOptions.add(radioButton3);
             }
 
             // Create Radio button for Option 4
-            if (currentQuestion.Option4 != null && !currentQuestion.Option4.isEmpty()) {
+            if (currentQuestion.getOption4() != null && !currentQuestion.getOption4().isEmpty()) {
                 RadioButton radioButton4 = new RadioButton(this);
-                radioButton4.setText("" + currentQuestion.Option4);
+                radioButton4.setText("" + currentQuestion.getOption4());
                 rbOptions.add(radioButton4);
             }
 
@@ -213,43 +213,43 @@ public class QuizActivity extends AppCompatActivity {
 
             layoutQuestionOptions.addView(rgOptions);
 
-        } else if (currentQuestion.Type.equals("text")) {
+        } else if (currentQuestion.getType().equals("text")) {
             // Create Edit Text
             editTextAnswer = new EditText(this);
 
-            if (currentQuestion.Option1 != null && !currentQuestion.Option1.isEmpty()) {
-                editTextAnswer.setText(currentQuestion.Option1);
+            if (currentQuestion.getOption1() != null && !currentQuestion.getOption1().isEmpty()) {
+                editTextAnswer.setText(currentQuestion.getOption1());
             }
 
             layoutQuestionOptions.addView(editTextAnswer);
 
-        } else if (currentQuestion.Type.equals("checkbox")) {
+        } else if (currentQuestion.getType().equals("checkbox")) {
             // Create Check Box array with size equals the options count
             chkOptions = new ArrayList<CheckBox>();
 
             // Create checkbox for Option 1
             CheckBox checkBox1 = new CheckBox(this);
-            checkBox1.setText("" + currentQuestion.Option1);
+            checkBox1.setText("" + currentQuestion.getOption1());
             chkOptions.add(checkBox1);
 
             // Create checkbox for Option 2
-            if (currentQuestion.Option2 != null && !currentQuestion.Option2.isEmpty()) {
+            if (currentQuestion.getOption2() != null && !currentQuestion.getOption2().isEmpty()) {
                 CheckBox checkBox2 = new CheckBox(this);
-                checkBox2.setText("" + currentQuestion.Option2);
+                checkBox2.setText("" + currentQuestion.getOption2());
                 chkOptions.add(checkBox2);
             }
 
             // Create checkbox for Option 3
-            if (currentQuestion.Option3 != null && !currentQuestion.Option3.isEmpty()) {
+            if (currentQuestion.getOption3() != null && !currentQuestion.getOption3().isEmpty()) {
                 CheckBox checkBox3 = new CheckBox(this);
-                checkBox3.setText("" + currentQuestion.Option3);
+                checkBox3.setText("" + currentQuestion.getOption3());
                 chkOptions.add(checkBox3);
             }
 
             // Create checkbox for Option 4
-            if (currentQuestion.Option4 != null && !currentQuestion.Option4.isEmpty()) {
+            if (currentQuestion.getOption4() != null && !currentQuestion.getOption4().isEmpty()) {
                 CheckBox checkBox4 = new CheckBox(this);
-                checkBox4.setText("" + currentQuestion.Option4);
+                checkBox4.setText("" + currentQuestion.getOption4());
                 chkOptions.add(checkBox4);
             }
 
@@ -265,7 +265,7 @@ public class QuizActivity extends AppCompatActivity {
     private boolean isCorrectAnswer() {
         String userAnswer = "";
 
-        switch (currentQuestion.Type) {
+        switch (currentQuestion.getType()) {
             case "text":
                 userAnswer = editTextAnswer.getText().toString().trim();
                 break;
@@ -291,15 +291,15 @@ public class QuizActivity extends AppCompatActivity {
                 break;
         }
 
-        Log.v("Correct Answer", currentQuestion.CorrectAnswer);
+        Log.v("Correct Answer", currentQuestion.getCorrectAnswer());
         Log.v("User Answer", userAnswer);
-        Log.v("Is Correct", Objects.equals(currentQuestion.CorrectAnswer, userAnswer) + "");
-        return Objects.equals(currentQuestion.CorrectAnswer, userAnswer);
+        Log.v("Is Correct", Objects.equals(currentQuestion.getCorrectAnswer(), userAnswer) + "");
+        return Objects.equals(currentQuestion.getCorrectAnswer(), userAnswer);
     }
 
     private void highlightUserAnswer(boolean isCorrect) {
 
-        switch (currentQuestion.Type) {
+        switch (currentQuestion.getType()) {
             case "text":
                 editTextAnswer.setTextColor(isCorrect ? getResources().getColor(R.color.correct_answer) :
                         getResources().getColor(R.color.wrong_answer));
@@ -307,7 +307,7 @@ public class QuizActivity extends AppCompatActivity {
             case "radio":
                 for (int i = 0; i < rbOptions.size(); i++) {
                     // Color correct answer with Green
-                    if (currentQuestion.CorrectAnswer.equals(rbOptions.get(i).getText().toString().trim())) {
+                    if (currentQuestion.getCorrectAnswer().equals(rbOptions.get(i).getText().toString().trim())) {
                         rbOptions.get(i).setTextColor(getResources().getColor(R.color.correct_answer));
                     }
 
@@ -319,13 +319,13 @@ public class QuizActivity extends AppCompatActivity {
             case "checkbox":
                 for (int i = 0; i < chkOptions.size(); i++) {
                     // Color correct answer with Green
-                    if (currentQuestion.CorrectAnswer.contains(chkOptions.get(i).getText().toString().trim())) {
+                    if (currentQuestion.getCorrectAnswer().contains(chkOptions.get(i).getText().toString().trim())) {
                         chkOptions.get(i).setTextColor(getResources().getColor(R.color.correct_answer));
                     }
 
                     // Color wrong answer with Red
                     if (!isCorrect && chkOptions.get(i).isChecked()
-                            && !currentQuestion.CorrectAnswer.contains(chkOptions.get(i).getText().toString().trim())) {
+                            && !currentQuestion.getCorrectAnswer().contains(chkOptions.get(i).getText().toString().trim())) {
                         chkOptions.get(i).setTextColor(getResources().getColor(R.color.wrong_answer));
                     }
                 }
