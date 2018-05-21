@@ -3,113 +3,103 @@
     "Questions": [
       {
         "Id": "1",
-        "Title": "1. What are style sheets used for?",
-        "Option1": "to store the keywords of web pages",
-        "Option2": "to define the structure of the web documents",
-        "Option3": "to script web pages",
-        "Option4": "to control the look and feel of web documents",
-        "CorrectAnswer": "to control the look and feel of web documents",
-        "Type": "radio",
-        "OptionsCount": "4"
+        "Title": "1. What tag contains the JavaScript code?",
+        "Option1": "body",
+        "Option2": "script",
+        "Option3": "style",
+        "Option4": "code",
+        "CorrectAnswer": "script",
+        "Type": "radio"
       },
       {
         "Id": "2",
-        "Title": "2. Select the attribute that organizes the inline styling:",
-        "Option1": "id",
-        "Option2": "style",
-        "Option3": "class",
+        "Title": "2. Where is the \"script\" tag typically placed?",
+        "Option1": "Inside the HEAD tag",
+        "Option2": "Before the HTML tag",
+        "Option3": "After the closing HTML tag",
         "Option4": "",
-        "CorrectAnswer": "style",
-        "Type": "radio",
-        "OptionsCount": "3"
+        "CorrectAnswer": "Inside the HEAD tag",
+        "Type": "radio"
       },
       {
         "Id": "3",
-        "Title": "3. Where should the style tag be declared to organize an internal CSS?",
-        "Option1": "body",
-        "Option2": "external file",
-        "Option3": "head",
-        "Option4": "",
-        "CorrectAnswer": "head",
-        "Type": "radio",
-        "OptionsCount": "3"
+        "Title": "3. How does the single line comment look like?",
+        "Option1": "<!--this is a comment-->",
+        "Option2": "// this is a comment",
+        "Option3": "%%this is a comment",
+        "Option4": "**this is a comment",
+        "CorrectAnswer": "// this is a comment",
+        "Type": "radio"
       },
       {
         "Id": "4",
-        "Title": "4. Fill in the blanks to call an external stylesheet called \"test.css\":",
-        "Option1": "<____ rel=\"stylesheet\" href=\"test.css\">",
+        "Title": "4. What extension is used for the JavaScript file",
+        "Option1": ".__",
         "Option2": "",
         "Option3": "",
         "Option4": "",
-        "CorrectAnswer": "<link rel=\"stylesheet\" href=\"test.css\">",
-        "Type": "text",
-        "OptionsCount": "1"
+        "CorrectAnswer": ".js",
+        "Type": "text"
       },
       {
         "Id": "5",
-        "Title": "5. Turn the text into a comment in CSS:",
-        "Option1": "__ This is a comment __",
-        "Option2": "",
-        "Option3": "",
-        "Option4": "",
-        "CorrectAnswer": "/* This is a comment */",
-        "Type": "text",
-        "OptionsCount": "1"
+        "Title": "5. What are the three core languages in web pages?",
+        "Option1": "PHP",
+        "Option2": "HTML",
+        "Option3": "CSS",
+        "Option4": "JavaScript",
+        "CorrectAnswer": "HTML,CSS,JavaScript",
+        "Type": "checkbox"
       },
       {
         "Id": "6",
-        "Title": "6. What value is NOT used with the font-style property?",
-        "Option1": "italic",
-        "Option2": "slant",
-        "Option3": "normal",
-        "Option4": "oblique",
-        "CorrectAnswer": "slant",
-        "Type": "radio",
-        "OptionsCount": "4"
+        "Title": "6. Which keyword is used to tell JavaScript that we're going to work with a variable?",
+        "Option1": "variable",
+        "Option2": "vrb",
+        "Option3": "int",
+        "Option4": "var",
+        "CorrectAnswer": "var",
+        "Type": "radio"
       },
       {
         "Id": "7",
-        "Title": "7. Which of the following options are accepted by the color property?",
-        "Option1": "hexadecimal",
-        "Option2": "color names",
-        "Option3": "octal",
-        "Option4": "",
-        "CorrectAnswer": "hexadecimal,color names",
-        "Type": "checkbox",
-        "OptionsCount": "3"
+        "Title": "7. What characters can be used to start a variable?",
+        "Option1": "Letters",
+        "Option2": "Numbers",
+        "Option3": "Mathematical operators",
+        "Option4": "Underscore sign (_)",
+        "CorrectAnswer": "Letters,Underscore sign (_)",
+        "Type": "checkbox"
       },
       {
         "Id": "8",
-        "Title": "8. Which of the values below is NOT applicable for the text-align property?",
-        "Option1": "left",
-        "Option2": "even",
-        "Option3": "center",
-        "Option4": "right",
-        "CorrectAnswer": "even",
-        "Type": "radio",
-        "OptionsCount": "4"
+        "Title": "8. A floating point number:",
+        "Option1": "Is always positive",
+        "Option2": "Is allowed to have a decimal place",
+        "Option3": "Is always smaller than 0",
+        "Option4": "",
+        "CorrectAnswer": "Is allowed to have a decimal place",
+        "Type": "radio"
       },
       {
         "Id": "9",
-        "Title": "9. Negative values can be used with the vertical-align property.",
-        "Option1": "False",
-        "Option2": "True",
-        "Option3": "",
+        "Title": "9. What character is used as the multiplication sign?",
+        "Option1": "x",
+        "Option2": "&",
+        "Option3": "*",
         "Option4": "",
-        "CorrectAnswer": "True",
-        "Type": "radio",
-        "OptionsCount": "2"
+        "CorrectAnswer": "*",
+        "Type": "radio"
       },
       {
       "Id": "10",
-      "Title": "10. The three properties describing the border are:",
-      "Option1": "style",
-      "Option2": "color",
-      "Option3": "position",
-      "Option4": "size",
-      "CorrectAnswer": "style,color,size",
-      "Type": "checkbox",
-      "OptionsCount": "4"
+      "Title": "10. What two values does the Boolean data type accept?",
+      "Option1": "false",
+      "Option2": "wrong",
+      "Option3": "true",
+      "Option4": "right",
+      "CorrectAnswer": "false,true",
+      "Type": "checkbox"
       }
     ]
   }

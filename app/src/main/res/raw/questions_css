@@ -9,8 +9,7 @@
         "Option3": "to script web pages",
         "Option4": "to control the look and feel of web documents",
         "CorrectAnswer": "to control the look and feel of web documents",
-        "Type": "radio",
-        "OptionsCount": "4"
+        "Type": "radio"
       },
       {
         "Id": "2",
@@ -20,8 +19,7 @@
         "Option3": "class",
         "Option4": "",
         "CorrectAnswer": "style",
-        "Type": "radio",
-        "OptionsCount": "3"
+        "Type": "radio"
       },
       {
         "Id": "3",
@@ -31,8 +29,7 @@
         "Option3": "head",
         "Option4": "",
         "CorrectAnswer": "head",
-        "Type": "radio",
-        "OptionsCount": "3"
+        "Type": "radio"
       },
       {
         "Id": "4",
@@ -42,8 +39,7 @@
         "Option3": "",
         "Option4": "",
         "CorrectAnswer": "<link rel=\"stylesheet\" href=\"test.css\">",
-        "Type": "text",
-        "OptionsCount": "1"
+        "Type": "text"
       },
       {
         "Id": "5",
@@ -53,8 +49,7 @@
         "Option3": "",
         "Option4": "",
         "CorrectAnswer": "/* This is a comment */",
-        "Type": "text",
-        "OptionsCount": "1"
+        "Type": "text"
       },
       {
         "Id": "6",
@@ -64,8 +59,7 @@
         "Option3": "normal",
         "Option4": "oblique",
         "CorrectAnswer": "slant",
-        "Type": "radio",
-        "OptionsCount": "4"
+        "Type": "radio"
       },
       {
         "Id": "7",
@@ -75,8 +69,7 @@
         "Option3": "octal",
         "Option4": "",
         "CorrectAnswer": "hexadecimal,color names",
-        "Type": "checkbox",
-        "OptionsCount": "3"
+        "Type": "checkbox"
       },
       {
         "Id": "8",
@@ -86,8 +79,7 @@
         "Option3": "center",
         "Option4": "right",
         "CorrectAnswer": "even",
-        "Type": "radio",
-        "OptionsCount": "4"
+        "Type": "radio"
       },
       {
         "Id": "9",
@@ -97,8 +89,7 @@
         "Option3": "",
         "Option4": "",
         "CorrectAnswer": "True",
-        "Type": "radio",
-        "OptionsCount": "2"
+        "Type": "radio"
       },
       {
       "Id": "10",
@@ -108,8 +99,7 @@
       "Option3": "position",
       "Option4": "size",
       "CorrectAnswer": "style,color,size",
-      "Type": "checkbox",
-      "OptionsCount": "4"
+      "Type": "checkbox"
       }
     ]
   }

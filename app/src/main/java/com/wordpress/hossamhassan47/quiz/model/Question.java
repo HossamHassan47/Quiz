@@ -18,8 +18,6 @@ public class Question {
 
     private String type;
 
-    private String optionsCount;
-
     public String getId() {
         return id;
     }
@@ -82,13 +80,5 @@ public class Question {
 
     public void setType(String type) {
         this.type = type;
-    }
-
-    public String getOptionsCount() {
-        return optionsCount;
-    }
-
-    public void setOptionsCount(String optionsCount) {
-        this.optionsCount = optionsCount;
     }
 }

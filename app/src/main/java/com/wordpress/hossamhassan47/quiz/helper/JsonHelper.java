@@ -19,9 +19,9 @@ public class JsonHelper {
 
         // Get questions data from res/raw/questions Json file based on subject
         InputStream inputStream;
-        if (subject.equals("CSS")) {
+        if (subject.equals(context.getResources().getString(R.string.css))) {
             inputStream = context.getResources().openRawResource(R.raw.questions_css);
-        } else if (subject.equals("HTML")) {
+        } else if (subject.equals(context.getResources().getString(R.string.html))) {
             inputStream = context.getResources().openRawResource(R.raw.questions_html);
         } else {
             inputStream = context.getResources().openRawResource(R.raw.questions_javascript);
@@ -67,7 +67,6 @@ public class JsonHelper {
                 question.setOption4(jArray.getJSONObject(i).getString("Option4"));
                 question.setCorrectAnswer(jArray.getJSONObject(i).getString("CorrectAnswer"));
                 question.setType(jArray.getJSONObject(i).getString("Type"));
-                question.setOptionsCount(jArray.getJSONObject(i).getString("OptionsCount"));
 
                 // Add to question array list
                 questions.add(question);

@@ -18,6 +18,27 @@
             android:scaleType="fitCenter"
             android:src="@mipmap/ic_launcher" />
 
+        <!--HTML-->
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/main_subject_height"
+            android:layout_marginLeft="@dimen/text_margin"
+            android:layout_marginRight="@dimen/text_margin"
+            android:layout_marginTop="@dimen/text_margin"
+            android:background="@color/background_HTML">
+
+            <TextView
+                android:id="@+id/text_view_html"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="?android:attr/selectableItemBackground"
+                android:gravity="center"
+                android:text="@string/html"
+                android:textAppearance="?android:textAppearanceMedium"
+                android:textColor="@android:color/white"
+                android:textStyle="bold" />
+        </FrameLayout>
+        
         <!--CSS-->
         <FrameLayout
             android:layout_width="match_parent"
@@ -38,27 +59,6 @@
                 android:textColor="@android:color/white"
                 android:textStyle="bold" />
 
-        </FrameLayout>
-
-        <!--HTML-->
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/main_subject_height"
-            android:layout_marginLeft="@dimen/text_margin"
-            android:layout_marginRight="@dimen/text_margin"
-            android:layout_marginTop="@dimen/text_margin"
-            android:background="@color/background_HTML">
-
-            <TextView
-                android:id="@+id/text_view_html"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="?android:attr/selectableItemBackground"
-                android:gravity="center"
-                android:text="@string/html"
-                android:textAppearance="?android:textAppearanceMedium"
-                android:textColor="@android:color/white"
-                android:textStyle="bold" />
         </FrameLayout>
 
         <!--JavaScript-->
