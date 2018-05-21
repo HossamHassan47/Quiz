@@ -1,21 +1,50 @@
 package com.wordpress.hossamhassan47.quiz.model;
 
+/**
+ * Question Model Class
+ *
+ * This class used as a model class for the quiz question
+ */
 public class Question {
 
+    /**
+     * The question Id
+     */
     private String id;
 
+    /**
+     * The question Title
+     */
     private String title;
 
+    /**
+     * The question Option #1
+     */
     private String option1;
 
+    /**
+     * The question Option #2
+     */
     private String option2;
 
+    /**
+     * The question Option #3
+     */
     private String option3;
 
+    /**
+     * The question Option #4
+     */
     private String option4;
 
+    /**
+     * The question Correct Answer
+     */
     private String correctAnswer;
 
+    /**
+     * The question Type i.e. Free Text, Radiobutton, or Checkbox
+     */
     private String type;
 
     public String getId() {

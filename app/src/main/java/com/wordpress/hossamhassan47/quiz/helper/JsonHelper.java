@@ -13,8 +13,21 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 
+/**
+ * Json Helper Class
+ *
+ * This class used to read the questions list form Json files
+ */
 public class JsonHelper {
 
+    /**
+     * Method that reads questions based on the subject
+     *
+     * @param context The current context of the app
+     * @param subject The questions subject i.e. CSS, HTML, and JavaScript
+     *
+     * @return ArrayList of Questions
+     */
     public static ArrayList<Question> ReadQuestions(Context context, String subject) {
 
         // Get questions data from res/raw/questions Json file based on subject

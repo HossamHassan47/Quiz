@@ -9,13 +9,15 @@ import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.EditText;
-import android.widget.Toast;
 
-import com.wordpress.hossamhassan47.quiz.activities.MainActivity;
 import com.wordpress.hossamhassan47.quiz.R;
 import com.wordpress.hossamhassan47.quiz.activities.QuizActivity;
 
+/**
+ * Start Quiz Fragment
+ *
+ * This fragment used to display the quiz instructions to the user before he start the quiz
+ */
 public class StartQuizFragment extends DialogFragment {
 
     NoticeDialogListener mListener;

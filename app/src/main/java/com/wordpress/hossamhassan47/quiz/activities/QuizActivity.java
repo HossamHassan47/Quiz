@@ -33,6 +33,13 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * Quiz Activity
+ *
+ * This activity used to display the quiz questions and get answers from the user, finally display the quiz result.
+ *
+ * @author Hossam Hassan
+ */
 public class QuizActivity extends AppCompatActivity {
 
     String quizSubject;
@@ -159,6 +166,10 @@ public class QuizActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Method that displays the current question
+     * @param index The current question index
+     */
     private void displayQuestion(int index) {
         // Get current question
         currentQuestion = lstQuestions.get(index);
@@ -261,6 +272,11 @@ public class QuizActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Method that checks the user answer
+     *
+     * @return True for correct answers and False for incorrect answers
+     */
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     private boolean isCorrectAnswer() {
         String userAnswer = "";
@@ -297,6 +313,11 @@ public class QuizActivity extends AppCompatActivity {
         return Objects.equals(currentQuestion.getCorrectAnswer(), userAnswer);
     }
 
+    /**
+     * Method that colors the correct answer with green and incorrect answer with red
+     *
+     * @param isCorrect True for correct answers and False for incorrect answers
+     */
     private void highlightUserAnswer(boolean isCorrect) {
 
         switch (currentQuestion.getType()) {
@@ -333,6 +354,11 @@ public class QuizActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Method that displayed message for the user indicating whether his answers is correct or incorrect
+     *
+     * @param isCorrectAnswer True for correct answers and False for incorrect answers
+     */
     private void displayMessage(boolean isCorrectAnswer) {
         // Create message text view
         TextView txtMessage = new TextView(this);
@@ -356,6 +382,9 @@ public class QuizActivity extends AppCompatActivity {
         layoutQuestionOptions.addView(txtMessage);
     }
 
+    /**
+     * Method that displays the final quiz result for the user
+     */
     private void displayQuizResult() {
         // Clear activity
         txtQuestionTitle.setVisibility(View.GONE);
@@ -394,6 +423,11 @@ public class QuizActivity extends AppCompatActivity {
         layoutQuestionOptions.addView(textView);
     }
 
+    /**
+     * Method that plays sound indicating whether his answers is correct or incorrect
+     *
+     * @param isCorrect True for correct answers and False for incorrect answers
+     */
     private void playSound(boolean isCorrect) {
 
         releaseMediaPlayer();
@@ -443,6 +477,9 @@ public class QuizActivity extends AppCompatActivity {
                 }
             };
 
+    /**
+     * Method to release the media player object after playing the sound
+     */
     private void releaseMediaPlayer() {
         // If the media player is not null, then it may be currently playing a sound.
         if (mMediaPlayer != null) {

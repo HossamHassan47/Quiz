@@ -1,18 +1,22 @@
 package com.wordpress.hossamhassan47.quiz.activities;
 
+import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.wordpress.hossamhassan47.quiz.R;
 import com.wordpress.hossamhassan47.quiz.fragments.NoticeDialogListener;
 import com.wordpress.hossamhassan47.quiz.fragments.StartQuizFragment;
 
-import org.w3c.dom.Text;
-
+/**
+ * Main activity of the quiz app
+ *
+ * This activity used to display different quiz subject for the user
+ *
+ * @author Hossam Hassan
+ */
 public class MainActivity extends AppCompatActivity implements NoticeDialogListener {
 
     @Override
